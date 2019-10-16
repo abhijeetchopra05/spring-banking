@@ -26,6 +26,10 @@ public class User {
     private String userName;
 
     @NotBlank
+    @Column(name = "password")
+    private String password;
+
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
 
@@ -90,5 +94,13 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

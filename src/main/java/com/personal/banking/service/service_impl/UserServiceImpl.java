@@ -2,6 +2,7 @@ package com.personal.banking.service.service_impl;
 
 import com.personal.banking.domain.User;
 import com.personal.banking.dto.UserDTO;
+import com.personal.banking.exception.UserAlreadyExistException;
 import com.personal.banking.repo.UserRepo;
 import com.personal.banking.service.mapper.UserMapper;
 import com.personal.banking.service.service_interface.UserService;
@@ -22,13 +23,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-
-        Optional<User> user = userRepo.findById(userDTO.getId());
-
+        Optional<User> user = userRepo.findByUserName(userDTO.getUserName());
         if (user.isPresent()) {
-            // return a custom exception
+            throw new UserAlreadyExistException();
         }
-
         return userMapper.toDto(userRepo.save(userMapper.toEntity(userDTO)));
     }
 }

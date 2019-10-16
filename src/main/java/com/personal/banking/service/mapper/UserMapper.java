@@ -16,6 +16,7 @@ public class UserMapper implements EntityMapper<UserDTO, User> {
         userDTO.setId(user.getId());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
+        userDTO.setPassword(user.getPassword());
         userDTO.setUserName(user.getUserName());
         userDTO.setCreatedAt(user.getCreatedAt());
         userDTO.setUpdatedAt(user.getUpdatedAt());
@@ -28,6 +29,7 @@ public class UserMapper implements EntityMapper<UserDTO, User> {
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setPassword(userDTO.getPassword());
         if (userDTO.getId() != null) {
             user.setId(userDTO.getId());
         }
