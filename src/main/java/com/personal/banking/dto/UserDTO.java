@@ -1,6 +1,7 @@
 package com.personal.banking.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserDTO {
 
@@ -18,6 +19,16 @@ public class UserDTO {
 
     private String password;
 
+    private List<String> role;
+
+
+    public List<String> getRole() {
+        return role;
+    }
+
+    public void setRole(List<String> role) {
+        this.role = role;
+    }
 
     public String getPassword() {
         return password;
