@@ -12,4 +12,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<CustomResponseException> handleException() {
         return new ResponseEntity<>(new CustomResponseException(1000, "User already exist"), HttpStatus.BAD_REQUEST);
     }
+
+
+    @ExceptionHandler(RoleDoesNotExistException.class)
+    public ResponseEntity<CustomResponseException> handleRoleDoesNotExistException() {
+        return new ResponseEntity<>(new CustomResponseException(1001, "Role does not exist"), HttpStatus.NOT_FOUND);
+    }
 }
