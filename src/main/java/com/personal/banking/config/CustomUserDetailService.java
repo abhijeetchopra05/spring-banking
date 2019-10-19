@@ -8,11 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class CustomUserDetailService implements UserDetailsService {
 
     @Autowired
@@ -22,6 +25,7 @@ public class CustomUserDetailService implements UserDetailsService {
     PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Optional<User> userOptional = userRepo.findByUserName(username);
@@ -36,8 +40,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
             List<Role> roleList = new ArrayList<>(user.getRoleSet());
             String[] roles = new String[roleList.size()];
-
-            for (int i = 0; i < roleList.size() - 1; i++) {
+            for (int i = 0; i < roleList.size(); i++) {
                 roles[i] = roleList.get(i).getName();
             }
 

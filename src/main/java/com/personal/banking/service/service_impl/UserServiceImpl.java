@@ -50,4 +50,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.toDto(userRepo.save(newUser));
     }
 
+    @Override
+    public UserDTO fetch(String userName) {
+        Optional<User> user = userRepo.findByUserName(userName);
+        // throw exception of user does not exist
+        return user.map(value -> userMapper.toDto(value)).orElse(null);
+    }
+
 }
