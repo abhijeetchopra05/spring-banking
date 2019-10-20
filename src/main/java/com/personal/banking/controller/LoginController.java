@@ -30,14 +30,10 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
         authenticate(loginDTO.getUserName(), loginDTO.getPassword());
-
         final UserDetails userDetails = customUserDetailService.loadUserByUsername(loginDTO.getUserName());
-
         final String token = jwtTokenUtil.generateToken(userDetails);
-
         TokenDTO tokenDTO = new TokenDTO();
         tokenDTO.setToken(token);
-
         return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
 
     }
