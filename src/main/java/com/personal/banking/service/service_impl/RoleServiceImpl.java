@@ -6,7 +6,10 @@ import com.personal.banking.repo.RoleRepo;
 import com.personal.banking.service.service_interface.RoleService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class RoleServiceImpl implements RoleService {
 
 
