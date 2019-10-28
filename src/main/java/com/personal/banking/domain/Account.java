@@ -26,8 +26,6 @@ public abstract class Account {
     @Column(name = "account_number")
     private Long accountNumber;
 
-    @Column(name = "branch_id")
-    private Long branchId;
 
     @Column(name = "amount")
     private Double amount;
@@ -52,6 +50,12 @@ public abstract class Account {
     @LastModifiedDate
     private Date updatedAt;
 
+    @ManyToOne
+    private Branch branch;
+
+    @ManyToOne
+    private User user;
+
     public Long getId() {
         return Id;
     }
@@ -66,14 +70,6 @@ public abstract class Account {
 
     public void setAccountNumber(Long accountNumber) {
         this.accountNumber = accountNumber;
-    }
-
-    public Long getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(Long branchId) {
-        this.branchId = branchId;
     }
 
     public Double getAmount() {
@@ -106,5 +102,38 @@ public abstract class Account {
 
     public void setNumberOfWithdrawal(Long numberOfWithdrawal) {
         this.numberOfWithdrawal = numberOfWithdrawal;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,7 +50,6 @@ public class User {
     @LastModifiedDate
     private Date updatedAt;
 
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
@@ -57,6 +57,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
 
     private Set<Role> roleSet;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Account> accounts;
 
 
     public Set<Role> getRoleSet() {
@@ -121,5 +125,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
     }
 }
