@@ -21,6 +21,16 @@ public class UserDTO {
 
     private List<String> role;
 
+    private List<Long> accountNumbers;
+
+
+    public List<Long> getAccountNumbers() {
+        return accountNumbers;
+    }
+
+    public void setAccountNumbers(List<Long> accountNumbers) {
+        this.accountNumbers = accountNumbers;
+    }
 
     public List<String> getRole() {
         return role;

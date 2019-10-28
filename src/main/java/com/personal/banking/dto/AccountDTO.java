@@ -11,7 +11,6 @@ public class AccountDTO {
 
     private Long accountNumber;
 
-
     private Double amount;
 
     private Long numberOfTransaction;
