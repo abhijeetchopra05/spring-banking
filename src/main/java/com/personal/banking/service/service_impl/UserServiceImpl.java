@@ -11,6 +11,7 @@ import com.personal.banking.service.service_interface.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
@@ -18,7 +19,6 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
 
@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService {
         }
         newUser.setRoleSet(roles);
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        return userMapper.toDto(userRepo.save(newUser));
+        newUser = save(newUser);
+        return userMapper.toDto(newUser);
     }
 
     @Override
@@ -57,6 +58,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> user = userRepo.findByUserName(userName);
         // throw exception of user does not exist
         return user.map(value -> userMapper.toDto(value)).orElse(null);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+        // so that commit is done and then the result is returned.
+    User save(User user) {
+        return userRepo.save(user);
     }
 
 }
