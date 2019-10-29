@@ -23,13 +23,12 @@ public class BranchController {
     }
 
     @GetMapping("/branch/{id}")
-    public ResponseEntity<BranchDTO> fetchById(Long id)
-    {
-        return new ResponseEntity<>(branchService.fetchById(id),HttpStatus.OK);
+    public ResponseEntity<BranchDTO> fetchById(@PathVariable Long id) {
+        return new ResponseEntity<>(branchService.fetchById(id), HttpStatus.OK);
     }
 
     @PutMapping("/branch/{id}")
-    public ResponseEntity<BranchDTO> update(Long id) {
-        return new ResponseEntity<>(branchService.update(id),HttpStatus.ACCEPTED);
+    public ResponseEntity<BranchDTO> update(@PathVariable Long id) {
+        return new ResponseEntity<>(branchService.update(id), HttpStatus.ACCEPTED);
     }
 }
