@@ -28,22 +28,25 @@ public class LoginController {
     private CustomUserDetailService customUserDetailService;
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO loginDTO) {
-        authenticate(loginDTO.getUserName(), loginDTO.getPassword());
-        final UserDetails userDetails = customUserDetailService.loadUserByUsername(loginDTO.getUserName());
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        TokenDTO tokenDTO = new TokenDTO();
-        tokenDTO.setToken(token);
-        return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
-
+    public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
+        try {
+            authenticate(loginDTO.getUserName(), loginDTO.getPassword());
+            final UserDetails userDetails = customUserDetailService.loadUserByUsername(loginDTO.getUserName());
+            final String token = jwtTokenUtil.generateToken(userDetails);
+            TokenDTO tokenDTO = new TokenDTO();
+            tokenDTO.setToken(token);
+            return new ResponseEntity<>(tokenDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+        }
     }
 
 
-    private void authenticate(String userName, String password) {
+    private void authenticate(String userName, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password));
         } catch (Exception e) {
-
+            throw new Exception("Wrong UserName and Password");
         }
     }
 }
