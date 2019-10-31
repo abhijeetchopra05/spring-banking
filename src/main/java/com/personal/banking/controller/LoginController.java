@@ -24,7 +24,7 @@ public class LoginController {
     @Autowired
     private CustomUserDetailService customUserDetailService;
 
-    @PutMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         try {
             authenticate(loginDTO.getUserName(), loginDTO.getPassword());
